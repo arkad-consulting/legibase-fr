@@ -3,6 +3,8 @@
 Usage (depuis le dossier legibase-fr) :
     python3 -I scripts/update.py               # télécharge si besoin, extrait, régénère
     python3 -I scripts/update.py --sans-telechargement   # réutilise l'archive déjà présente dans .cache/
+    python3 -I scripts/update.py --sans-extraction       # réutilise aussi les XML déjà extraits (à combiner
+                                                         # avec --sans-telechargement pour ne rien télécharger)
 
 Python 3 et bibliothèque standard uniquement. Réservé au mainteneur.
 """

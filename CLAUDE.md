@@ -1,4 +1,8 @@
-# Légibase — bibliothèque du droit français en Markdown
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+Projet : Légibase, bibliothèque du droit français en Markdown.
 
 ## Objectif
 
@@ -54,7 +58,9 @@ legibase-fr/
 ├── codes/
 │   ├── code-civil/
 │   │   ├── README.md             # plan du code (livres > titres > chapitres) avec liens
-│   │   ├── livre-III/titre-III/chapitre-I.md   # un fichier par chapitre
+│   │   ├── livre-iii/titre-iii/sous-titre-ier/chapitre-ier.md  # un fichier par chapitre (minuscules, sans accents)
+│   │   ├── livre-iii/titre-iii/articles-directs.md             # articles posés directement sur un livre ou un titre
+│   │   ├── meta.json             # nom officiel, identifiant LEGITEXT, nombre d'articles et de fichiers
 │   │   └── renvois.md            # liens vers et depuis les autres codes
 │   ├── code-de-procedure-civile/
 │   ├── code-du-travail/
@@ -70,6 +76,9 @@ legibase-fr/
 ```
 
 Un fichier par chapitre, pas un fichier par article.
+`textes-non-codifies/` et `jurisprudence/` n'existent pas encore (étape 3 et jurisprudence non commencées).
+`INDEX.md`, `VERSION.md`, `codes/` et `liens/` sont écrits par le générateur : ne pas les corriger à la main,
+modifier `scripts/generer.py` et régénérer. `SKILL.md` et `README.md` sont écrits à la main.
 Le dossier `scripts/` sert au mainteneur ; l'utilisateur n'en a pas besoin.
 
 ## Format d'un article
@@ -115,22 +124,15 @@ Le dossier `scripts/` sert au mainteneur ; l'utilisateur n'en a pas besoin.
 
 ## État d'avancement
 
-- **Code civil : terminé** (généré le 11/11/2026, base LEGI du 08/11/2026) : 2 896 articles en vigueur,
-  191 fichiers de chapitre, 4,4 Mo publiables. Texte vérifié identique aux XML (0 écart), 0 lien relatif cassé.
-- **Nuit du 13/11/2026 : 4 codes générés d'un coup, avec l'accord de l'utilisateur** (« fais tous les codes en séquence »),
-  même base LEGI du 08/11/2026 : procédure civile (2 027 articles, 173 fichiers), travail (11 479, 1 012),
-  consommation (1 919, 180), commerce (7 246, 460). Vérifiés : texte identique aux XML, 0 lien cassé, 0 ancre absente.
-  Bibliothèque : ~50 Mo (zip 8,5 Mo). Poussé sur GitHub le 13/11/2026.
-  Étape 3 (loi 71-1130, décret 91-1197, RIN) non faite : ce sont des textes non codifiés (`TNC_en_vigueur/JORF/...`),
-  il faut adapter l'extraction et le générateur (dossier `textes-non-codifies/`), et le RIN vient du site du CNB.
-- **Nuit du 13/11/2026, suite : les 76 codes en vigueur de LEGI générés**, à la demande de l'utilisateur (« continue à faire
-  tous les codes en France sans arrêt ») : 159 998 articles, 13 858 fichiers, 317 172 renvois ; `codes/` 303 Mo,
+- **Codes : les 76 codes en vigueur de LEGI sont générés** (13/11/2026, base LEGI du 08/11/2026), avec l'accord de
+  l'utilisateur pour les faire tous à la suite : 159 998 articles, 13 858 fichiers, 317 172 renvois ; `codes/` 303 Mo,
   `liens/` 62 Mo, zip 63 Mo. Vérifiés : texte identique aux XML, 0 lien cassé, 0 ancre absente (695 033 liens internes).
-  20 articles « VIGUEUR » non écrits car rangés par LEGI dans une section abrogée ou modifiée (consommation R822-x,
+  Poussé sur GitHub le 13/11/2026 (commit `5b2b679`).
+- **Articles « VIGUEUR » non écrits** (20) : rangés par LEGI dans une section abrogée ou modifiée (consommation R822-x,
   éducation R337-31/45, santé publique R1333-172 à 175, transports L3124-8/L4316-3, CGI 302 B/591, communes de
   Nouvelle-Calédonie R234-11). Le code du domaine public fluvial a 0 article « VIGUEUR » (1 seul « ABROGE_DIFF »).
-  **Taille** : trop grand pour une seule skill ? Proposer à l'utilisateur de séparer par domaine. Poussé sur GitHub le 13/11/2026 (commit `5b2b679`).
 - **Décisions à demander à l'utilisateur** :
+  - **taille** : la bibliothèque est sans doute trop grande pour une seule skill ; proposer de la séparer par domaine ;
   - des articles en vigueur aujourd'hui mais marqués « ABROGE_DIFF » (abrogation programmée) sont exclus par la règle
     « état VIGUEUR uniquement » (393 rien que pour civil, procédure civile, travail, consommation, commerce ; non compté
     pour les 76 codes). Proposition : les inclure avec « jusqu'au JJ/MM/AAAA » ;
@@ -138,20 +140,23 @@ Le dossier `scripts/` sert au mainteneur ; l'utilisateur n'en a pas besoin.
     section abrogée le 31/03/2026 : incohérence de LEGI, laissés de côté ;
   - 30 numéros d'articles portés par deux articles différents (surtout des annexes du code de commerce, ex. « Annexe 1-3 ») :
     les deux sont écrits, mais un lien vers ce numéro mène à un seul des deux.
-- `SKILL.md`, `README.md`, `INDEX.md`, `VERSION.md`, `liens/` et `scripts/` existent déjà.
-- **Dépôt GitHub** : `otonibar123/legibase-fr` (public depuis le 13/11/2026, branche `main`, premier commit `dbdf26f` le 12/11/2026).
-  Le jeton `GITHUB_TOKEN` de l'ordinateur ne donne accès qu'à ce compte. L'utilisateur a évoqué un autre compte
-  (« ootnibar123 », peut-être une faute de frappe) : il fera lui-même `! gh auth login` plus tard, puis le dépôt
-  sera recréé dessus si besoin.
-- **iCloud** : le dossier est dans `~/Documents`, synchronisé par iCloud, qui a créé un dossier vide
-  `codes/code-civil 3` après une régénération (supprimé). Recommandation en attente : déplacer le projet
-  dans `~/Projects/` (puis mettre à jour le `CLAUDE.md` parent).
-- **Prochaine étape proposée : textes de la profession d'avocat (étape 3).** Ne pas commencer sans l'accord de l'utilisateur.
+- **Dépôt GitHub** : `otonibar123/legibase-fr` (public, branche `main`). Le jeton `GITHUB_TOKEN` de l'ordinateur ne donne
+  accès qu'à ce compte. L'utilisateur a évoqué un autre compte (« ootnibar123 », peut-être une faute de frappe) : il fera
+  lui-même `! gh auth login` plus tard, puis le dépôt sera recréé dessus si besoin.
+- **iCloud (réglé le 18/11/2026)** : le projet a été déplacé de `~/Documents` vers `~/Projects/legibase-fr`, hors d'iCloud.
+  Historique : quand il était dans `~/Documents`, iCloud créait des doublons dans `codes/` après une
+  régénération (noms terminés par « 2 » ou « 3 » : `livre-ier 2`, `meta 2.json`). 207 doublons supprimés le 18/11/2026,
+  après vérification : aucun n'était suivi par git, aucun ne contenait de fichier absent de l'original, et les originaux
+  étaient identiques au dernier commit. Après chaque génération, chercher les noms contenant une espace
+  (`find codes liens -name '* *'`) et ne jamais faire `git add -A` avant de les avoir retirés.
+  Par prudence, refaire la recherche des noms contenant une espace après la prochaine génération.
+- **Prochaine étape proposée : textes de la profession d'avocat (étape 3)**, loi n° 71-1130, décret n° 91-1197, RIN.
+  Ne pas commencer sans l'accord de l'utilisateur. Ce sont des textes non codifiés (`TNC_en_vigueur/JORF/...`) : il faut
+  adapter l'extraction et le générateur (dossier `textes-non-codifies/`), et le RIN vient du site du CNB.
 - **Points ouverts** :
   - vérifier à la main qu'un lien Légifrance « Cité par » vers un texte non codifié
     (`https://www.legifrance.gouv.fr/loda/article_lc/<id>`) s'ouvre bien ; sinon changer le format dans `lien_legifrance()` ;
-  - détecter les mentions de lois citées par date (« article 10 de la loi du 31 décembre 1971 ») : à faire avec
-    le bloc « profession d'avocat » (étape 3) ;
+  - détecter les mentions de lois citées par date (« article 10 de la loi du 31 décembre 1971 ») : à faire avec l'étape 3 ;
   - jurisprudence : pas commencée (attendre le choix des thèmes).
 
 ## Commandes
@@ -161,7 +166,7 @@ Se placer dans `legibase-fr/` (Python 3, bibliothèque standard uniquement ; `-I
 ```
 python3 -I scripts/update.py                       # télécharge la dernière base LEGI, extrait, régénère tout
 python3 -I scripts/update.py --sans-telechargement # réutilise l'archive déjà dans .cache/
-python3 -I scripts/update.py --sans-extraction     # réutilise aussi les XML déjà extraits (quelques secondes)
+python3 -I scripts/update.py --sans-telechargement --sans-extraction  # réutilise aussi les XML déjà extraits
 ```
 
 - `CODES` de `scripts/update.py` contient les 76 codes en vigueur de LEGI (`dossier: identifiant LEGITEXT`, dossier = titre
@@ -173,6 +178,34 @@ python3 -I scripts/update.py --sans-extraction     # réutilise aussi les XML d�
   écriture) et `scripts/update.py` (téléchargement, extraction, appel).
 - Après chaque génération, vérifier par script (sans afficher les fichiers) : nombre d'articles = nombre d'articles
   « VIGUEUR » des XML, texte identique à la source, liens relatifs et ancres existants.
+  Il n'y a ni tests ni script de vérification dans le dépôt : ces contrôles ont été faits avec des scripts
+  temporaires, à réécrire à chaque fois (ou à ajouter dans `scripts/` avec l'accord de l'utilisateur).
+- `--sans-telechargement` prend l'archive la plus récente de `.cache/`. Piège : `--sans-extraction` seul interroge
+  quand même la DILA, télécharge une archive plus récente s'il y en a une, et écrit sa date dans `VERSION.md` alors
+  que les XML relus sont les anciens ; toujours le combiner avec `--sans-telechargement`. Sans `--sans-extraction`, tous les dossiers
+  `extrait-*` sont effacés puis recréés. `update.py` affiche à la fin un résumé par code et les compteurs `stats`
+  (articles écartés et pourquoi, liens écartés, numéros en double) : les lire après chaque génération.
+
+## Architecture des scripts
+
+`update.py` ne fait que télécharger, extraire et appeler `generer.ecrire_tout()`. Tout le reste est dans
+`generer.py`, en trois temps, pour tous les codes à la fois (les liens entre codes l'exigent) :
+
+1. **Lecture** (`lire_tout`) : pour chaque code, `lire_structure` suit `texte/struct` puis les `section_ta` et construit
+   un arbre de nœuds `{titre, id, enfants: [("art", id) | ("sec", nœud)]}` ; `planifier` transforme l'arbre en liste de
+   fichiers (un nœud dont le titre commence par « Chapitre », ou sans sous-section, = un fichier ; les niveaux au-dessus
+   = des dossiers) ; `lire_article` lit chaque article et ses liens `CITATION`.
+2. **Liens** (`construire_liens`) : liens officiels LEGI, puis mentions repérées dans le texte (`re_mention_code`).
+   Produit `aretes` (liste `{de, vers, origine: "LEGI" | "texte"}`) et les tables `renvoie` / `cite_par`.
+3. **Écriture** (`ecrire_tout`) : fichiers de chapitre, puis par code `README.md`, `renvois.md`, `meta.json`,
+   puis `liens/graphe/<code>.json`, `liens/carte-des-liens.md`, `INDEX.md` et `VERSION.md`.
+
+La table `emplacement` relie les trois temps : `(nom officiel du texte, numéro d'article)` → `(chemin du fichier,
+ancre, identifiant LEGIARTI, dossier du code)`. Un article est « dans la bibliothèque » s'il est dans cette table ;
+sinon `lien_md` écrit un lien Légifrance. La clé est le nom officiel (TITREFULL), pas le dossier : tout nom lu dans un
+libellé ou dans le texte doit d'abord être ramené à ce nom (`cidtexte`, sinon `complet()`).
+
+Un code sans aucun renvoi n'a pas de fichier dans `liens/graphe/` (73 fichiers pour 76 codes).
 
 ## Particularités de la base LEGI (à connaître avant de modifier le parseur)
 
@@ -239,58 +272,19 @@ python3 -I scripts/update.py --sans-extraction     # réutilise aussi les XML d�
   des tailles et quelques lignes d'exemple.
 - Tester le parseur sur un petit échantillon (quelques articles) avant de le lancer sur tout un code.
 
-## Contenu du SKILL.md à générer
+## SKILL.md et README.md
 
-### Frontmatter
+Les deux fichiers existent et sont écrits à la main. Ce qu'ils doivent toujours contenir :
 
-La description doit dire quand utiliser la skill : toute question sur le droit français,
-un article de code, une loi ou une décision de justice française.
+- **`SKILL.md`** : une description qui dit quand utiliser la skill (toute question sur le droit français, un article de
+  code, une loi ou une décision de justice française) ; la section « Honnêteté », qui passe avant toutes les autres
+  (ne jamais inventer, ne jamais répondre de mémoire, dire « Ce code n'est pas encore dans Légibase » ou « Je n'ai pas
+  trouvé cette information dans Légibase » au lieu de combler le vide, séparer le texte de l'interprétation) ; la façon
+  de chercher (`INDEX.md`, puis le dossier du code, puis les renvois et la jurisprudence liée) ; et les quatre règles
+  de chaque réponse : texte avec sa source et sa date de version, date de la bibliothèque lue dans `VERSION.md`,
+  mise en garde si cette date a plus d'un mois, avertissement final (« pas un avocat, pas un conseil juridique »).
+- **`README.md`** (pour les humains, court, en français) : ce que fait et ne fait pas Légibase, l'installation comme
+  skill pas à pas, 2 ou 3 exemples de questions, comment actualiser, les sources et leur licence (Licence Ouverte 2.0).
 
-### Comment chercher
-
-- Chercher d'abord dans `INDEX.md`, puis dans le dossier du code concerné.
-- Suivre les renvois pour donner une réponse complète (ex : un article du code du travail
-  qui renvoie au code civil).
-- Citer la jurisprudence liée avec sa juridiction, sa date et son numéro de pourvoi.
-- Séparer clairement ce que dit le texte et ce qui relève de l'interprétation.
-- Si la réponse n'est pas dans la bibliothèque, le dire clairement au lieu de répondre de mémoire.
-
-### Honnêteté : la règle la plus importante
-
-Dire toujours la vérité. Ne jamais inventer. Cette règle passe avant toutes les autres.
-
-- **Ne jamais inventer** un article, un numéro d'article, un texte de loi, une date,
-  une décision de justice, un numéro de pourvoi ou un lien.
-- **Ne jamais répondre de mémoire.** Ne citer que ce qui est écrit dans les fichiers de la bibliothèque.
-- **Si le code n'a pas été téléchargé** (absent de `INDEX.md`), le dire clairement :
-  « Ce code n'est pas encore dans Légibase. » Puis donner la liste des codes disponibles
-  et proposer de vérifier sur Légifrance.
-- **Si l'article ou la réponse n'est pas trouvé**, le dire clairement :
-  « Je n'ai pas trouvé cette information dans Légibase. » Ne pas combler le vide.
-- **Si la réponse est incertaine** (texte ambigu, plusieurs articles possibles, jurisprudence
-  contradictoire), le dire et expliquer pourquoi, au lieu de trancher.
-- **Séparer toujours** ce qui vient du texte (cité avec sa source) de ce qui est une explication
-  ou une interprétation (présentée comme telle).
-- **Ne jamais exagérer** : ne pas présenter une interprétation comme une certitude,
-  ni promettre l'issue d'un litige.
-- Mieux vaut répondre « je ne sais pas » que donner une réponse fausse.
-
-### Règles obligatoires pour CHAQUE réponse
-
-1. **Le texte et sa source** : citer l'article exact, sa date de version et son lien Légifrance.
-2. **La date de la bibliothèque** : indiquer la date de dernière actualisation lue dans `VERSION.md`.
-3. **L'actualisation** : si cette date a plus d'un mois, dire que des textes ont pu changer depuis,
-   et proposer à l'utilisateur de télécharger la dernière version sur GitHub
-   ou de vérifier l'article sur Légifrance.
-4. **L'avertissement** : terminer par un rappel court, par exemple :
-   « Légibase est un outil d'aide pour trouver les textes de loi. Ce n'est pas un avocat et ce n'est
-   pas un conseil juridique. Pour une situation précise, consultez un avocat ou un professionnel du droit. »
-
-## README.md à générer (pour les humains)
-
-Court et simple, en français :
-- ce que fait Légibase, et ce qu'elle ne fait pas (pas un avocat, pas un conseil juridique) ;
-- comment l'installer comme skill Claude, étape par étape ;
-- comment poser une question (2 ou 3 exemples) ;
-- comment actualiser (télécharger la dernière version) ;
-- les sources officielles et leur licence (Licence Ouverte 2.0 pour les données de la DILA).
+Ne pas affaiblir ces règles en modifiant l'un des deux fichiers ; si le contenu de la bibliothèque change
+(textes non codifiés, jurisprudence), mettre à jour « Comment chercher » et « Limites à connaître » de `SKILL.md`.
