@@ -140,9 +140,8 @@ Le dossier `scripts/` sert au mainteneur ; l'utilisateur n'en a pas besoin.
     section abrogée le 31/03/2026 : incohérence de LEGI, laissés de côté ;
   - 30 numéros d'articles portés par deux articles différents (surtout des annexes du code de commerce, ex. « Annexe 1-3 ») :
     les deux sont écrits, mais un lien vers ce numéro mène à un seul des deux.
-- **Dépôt GitHub** : `otonibar123/legibase-fr` (public, branche `main`). Le jeton `GITHUB_TOKEN` de l'ordinateur ne donne
-  accès qu'à ce compte. L'utilisateur a évoqué un autre compte (« ootnibar123 », peut-être une faute de frappe) : il fera
-  lui-même `! gh auth login` plus tard, puis le dépôt sera recréé dessus si besoin.
+- **Dépôt GitHub** : `arkad-consulting/legibase-fr` (public, branche `main`). Transféré le 18/11/2026 du compte personnel
+  `otonibar123` vers l'organisation `arkad-consulting` ; l'ancienne adresse redirige vers la nouvelle.
 - **iCloud (réglé le 18/11/2026)** : le projet a été déplacé de `~/Documents` vers `~/Projects/legibase-fr`, hors d'iCloud.
   Historique : quand il était dans `~/Documents`, iCloud créait des doublons dans `codes/` après une
   régénération (noms terminés par « 2 » ou « 3 » : `livre-ier 2`, `meta 2.json`). 207 doublons supprimés le 18/11/2026,
